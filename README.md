@@ -94,7 +94,7 @@ OR
 
 If you intend to modify the assets (JS/CSS) make sure to run 
 ```
-npm run watch
+$ npm run watch
 ```
 This command will continue to run in your terminal and watch relevant files for changes.
 
