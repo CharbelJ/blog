@@ -124,7 +124,7 @@ To run the tests you should be inside the application container.
     $ exit
     ```
 
-2. Bring all containers down.
+2. Bring all the containers down.
     ```
     $ docker-compose down
     ```
