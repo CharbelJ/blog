@@ -1,0 +1,52 @@
+version: "3.8"
+services:
+  blog_app:
+    build:
+      context: .
+    volumes:
+      - .:/usr/src/app
+    depends_on:
+      - blog_db
+    working_dir: /usr/src/app
+    environment:
+      SERVICE_NAME: blog-app
+      DB_CONNECTION: mysql
+      DB_DRIVER: mysql
+      DB_HOST: blog_db
+      DB_PORT: 3306
+    networks:
+      - app_network
+
+  blog_nginx:
+    build:
+      context: ./docker-nginx/.
+    volumes:
+    - "./public:/usr/src/app/public"
+    environment:
+      NGINX_FPM_HOST: blog_app
+      NGINX_ROOT: /usr/src/app/public
+    ports:
+      - "8000:80"
+    depends_on:
+      - blog_app
+    networks:
+      - app_network
+
+  blog_db:
+    image: mysql:5
+    restart: always
+    environment:
+      MYSQL_DATABASE: blog
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: root
+      MYSQL_PASSWORD: root
+    ports:
+      - "3306:3306"
+    volumes:
+      - "./storage/db-data:/var/lib/mysql"
+    networks:
+      - app_network
+
+networks:
+  app_network:
+    driver: bridge
