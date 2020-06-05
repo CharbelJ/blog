@@ -43,7 +43,7 @@ OR
     After the images are ready, it will start the containers. 
     The next time you run this command it will be way faster to execute.
     
-    *note: any change you make to the Dockerfile or any other file that the Dockerfile uses (excluding docker-compose.yaml) you will need to build the images again for the changes to take effect by using the following command.*
+    *note: any change you make to the Dockerfile or any other file that the Dockerfile uses (excluding docker-compose.yaml) you will need to build the images again for the changes to take effect by executing the following command.*
     ```
     $ docker-compose build && docker-compose up -d
     ```
