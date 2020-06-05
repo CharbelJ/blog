@@ -101,7 +101,7 @@ npm run watch
 ```
 This command will continue to run in your terminal and watch relevant files for changes.
 
-##Running Tests
+## Running Tests
 
 To run the tests you should be inside the application container.
 
