@@ -95,6 +95,7 @@ OR
 10. To access your Laravel Application visit [http://localhost:8000](http://localhost:8000)
 
 **Watching assets for changes**
+
 If you intend to modify the assets (JS/CSS) make sure to run 
 ```
 npm run watch
