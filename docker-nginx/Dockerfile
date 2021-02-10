@@ -14,4 +14,6 @@ COPY nginx.conf /etc/nginx/nginx.conf
 
 EXPOSE 80
 
+RUN chmod +x /usr/local/bin/entrypoint.sh
+
 ENTRYPOINT ["entrypoint.sh"]
