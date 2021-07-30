@@ -1,49 +1,61 @@
 version: "3.8"
 services:
   blog_app:
+    container_name: blog_app
     build:
       context: .
+      dockerfile: ./docker/php/Dockerfile
+    expose:
+      - 9000
     volumes:
       - .:/usr/src/app
+      - ./public:/usr/src/app/public
+    working_dir: /usr/src/app
     depends_on:
       - blog_db
-    working_dir: /usr/src/app
     environment:
       SERVICE_NAME: blog-app
-      DB_CONNECTION: mysql
-      DB_DRIVER: mysql
-      DB_HOST: blog_db
-      DB_PORT: 3306
     networks:
       - app_network
 
   blog_nginx:
+    container_name: blog_nginx
     build:
-      context: ./docker-nginx/.
+      context: .
+      dockerfile: ./docker/nginx/Dockerfile
     volumes:
-    - "./public:/usr/src/app/public"
+    - ./public:/usr/src/app/public
+    ports:
+      - 8000:80
+    depends_on:
+      - blog_app
     environment:
       NGINX_FPM_HOST: blog_app
       NGINX_ROOT: /usr/src/app/public
-    ports:
-      - "8000:80"
-    depends_on:
-      - blog_app
     networks:
       - app_network
 
   blog_db:
-    image: mysql:5
+    container_name: blog_db
+    image: mysql:8.0.20
     restart: always
+    volumes:
+      - ./storage/db-data:/var/lib/mysql
+    ports:
+      - 3306:3306
     environment:
       MYSQL_DATABASE: blog
       MYSQL_ROOT_PASSWORD: root
       MYSQL_USER: root
       MYSQL_PASSWORD: root
+    networks:
+      - app_network
+
+  blog_redis:
+    container_name: blog_redis
+    image: redis:latest
     ports:
-      - "3306:3306"
-    volumes:
-      - "./storage/db-data:/var/lib/mysql"
+      - 6379:6379
     networks:
       - app_network
 
