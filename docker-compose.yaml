@@ -12,8 +12,6 @@ services:
       - ./public:/usr/src/app/public
     depends_on:
       - blog_db
-    environment:
-      SERVICE_NAME: blog-app
     networks:
       - app_network
 
