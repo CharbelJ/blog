@@ -10,7 +10,6 @@ services:
     volumes:
       - .:/usr/src/app
       - ./public:/usr/src/app/public
-    working_dir: /usr/src/app
     depends_on:
       - blog_db
     environment:
